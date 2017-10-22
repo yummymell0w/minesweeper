@@ -1,21 +1,3 @@
-/*
-const printBoard = board => {
-    console.log('Current Board:');
-    console.log(board[0].join('|'));
-    console.log(board[1].join('|'));
-    console.log(board[2].join('|'));
-};
-let board = [
-    [' ',' ',' '],
-    [' ',' ',' '],
-    [' ',' ',' ']
-];
-printBoard(board);
-board[0][1] = 1;
-board[2][2] = 'B';
-printBoard(board);
-*/
-
 //Dynamically Generate a Player Board
 const generatePlayerBoard = (numberOfRows,numberOfColumns) => {
     let board = [];
@@ -28,5 +10,27 @@ const generatePlayerBoard = (numberOfRows,numberOfColumns) => {
     } return board;
 };
 //Dynamically Generate a Bomb Board
+const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
+    let board = [];
+    for (let i = 0; i < numberOfRows; i++) {
+        let rows = [];
+        for (let j = 0; j < numberOfColumns; j++) {
+            rows.push(null);
+        }
+        board.push(rows);
+    }
+    //Randomly Place Bombs on the Bomb Board
+    let numberOfBombsPlaced = 0;
+    while (numberOfBombsPlaced < numberOfBombs) {
+        let randomRowIndex = Math.floor(Math.random() * numberOfRows);
+        let randomColumnIndex = Math.floor(Math.random() * numberOfColumns);
+        board[numberOfRows][numberOfColumns] = 'B';
+    }
+
+
+
+
+    return board;
+};
 
 
