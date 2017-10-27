@@ -52,7 +52,17 @@ const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
     });
     return numberOfBombs;
 };
-
+// Add flipTile() - allows user to flp a tile
+const flipTile = (playerBoard, bombBoard, rowIndex, columnIndex) => {
+    if (playerBoard[rowIndex][columnIndex] !== ' ') {
+        console.log('This tile has already been flipped!');
+        return; // what shoiuld be returned?
+    } else if (bombBoard[rowIndex][columnIndex] === 'B') {
+        playerBoard[rowIndex][columnIndex] = 'B'; //we should place a bomb at those same row and column indices on the playerBoard.
+    } else {
+       playerBoard[rowIndex][columnIndex] = getNumberOfNeighborBombs(bombBoard,rowIndex,columnIndex);
+    }
+};
 
 //An Updated printBoard() Function
 const printBoard = board => {
@@ -66,3 +76,7 @@ console.log('Player Board: ');
 printBoard(playerBoard);
 console.log('Bomb Board: ');
 printBoard(bombBoard);
+// Use flipTile() - call flipTile function
+flipTile(playerBoard,bombBoard,0,0);
+console.log('Updated Player Board:');
+printBoard(playerBoard);
