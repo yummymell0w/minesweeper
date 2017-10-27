@@ -37,15 +37,25 @@ const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
 };
 //Add getNumberOfNeighborBombs() - displaying the number of bombs adjacent to the flipped tile
 const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
-    const neighborOffsets = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+    const neighborOffsets = [
+        [-1,-1],
+        [-1,0],
+        [-1,1],
+        [0,-1],
+        [0,1],
+        [1,-1],
+        [1,0],
+        [1,1]
+    ];
     const numberOfRows = bombBoard.length;
     const numberOfColumns = bombBoard[0].length;
     let numberOfBombs = 0;
     neighborOffsets.forEach(offset => {
         const neighborRowIndex = rowIndex + offset[0];
-        const neighborColumnIndex = columnIndex + offset[0];
-        if (0 <= neighborRowIndex <= numberOfRows && 0 <= neighborColumnIndex <= numberOfColumns) {
-            if (bombBoard === 'B') {
+        const neighborColumnIndex = columnIndex + offset[1];
+        if (0 <= neighborRowIndex && neighborRowIndex < numberOfRows &&
+            0 <= neighborColumnIndex && neighborColumnIndex < numberOfColumns) {
+            if (bombBoard[neighborRowIndex][neighborColumnIndex] === 'B') {
                 numberOfBombs ++;
             }
         }
@@ -55,8 +65,7 @@ const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
 // Add flipTile() - allows user to flp a tile
 const flipTile = (playerBoard, bombBoard, rowIndex, columnIndex) => {
     if (playerBoard[rowIndex][columnIndex] !== ' ') {
-        console.log('This tile has already been flipped!');
-        return; // what shoiuld be returned?
+        return 'This tile has already been flipped!';
     } else if (bombBoard[rowIndex][columnIndex] === 'B') {
         playerBoard[rowIndex][columnIndex] = 'B'; //we should place a bomb at those same row and column indices on the playerBoard.
     } else {
