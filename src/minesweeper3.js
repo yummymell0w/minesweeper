@@ -25,11 +25,35 @@ const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
     while (numberOfBombsPlaced < numberOfBombs) {
         let randomRowIndex = Math.floor(Math.random() * numberOfRows);
         let randomColumnIndex = Math.floor(Math.random() * numberOfColumns);
+        //Fix generateBombBoard()
+        if (randomRowIndex !== 'B' && randomColumnIndex !== 'B') {
+            board[randomRowIndex][randomColumnIndex] = 'B';
+            numberOfBombsPlaced++;
+        }
         board[randomRowIndex][randomColumnIndex] = 'B';
         numberOfBombsPlaced ++;
     }
     return board;
 };
+//Add getNumberOfNeighborBombs() - displaying the number of bombs adjacent to the flipped tile
+const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
+    const neighborOffsets = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+    const numberOfRows = bombBoard.length;
+    const numberOfColumns = bombBoard[0].length;
+    let numberOfBombs = 0;
+    neighborOffsets.forEach(offset => {
+        const neighborRowIndex = rowIndex + offset[0];
+        const neighborColumnIndex = columnIndex + offset[0];
+        if (0 <= neighborRowIndex <= numberOfRows && 0 <= neighborColumnIndex <= numberOfColumns) {
+            if (bombBoard === 'B') {
+                numberOfBombs ++;
+            }
+        }
+    });
+    return numberOfBombs;
+};
+
+
 //An Updated printBoard() Function
 const printBoard = board => {
     console.log(board.map(row => row.join(' | ')).join('\n'));
