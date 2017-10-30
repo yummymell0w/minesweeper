@@ -1,6 +1,23 @@
 //Create Game class
 class Game {
+    constructor(numberOfRows, numberOfColumns, numberOfBombs) {
+        this._board = new Board(numberOfRows, numberOfColumns, numberOfBombs);
+    }
 
+    //Add playMove() to the Game Class
+    playMove(rowIndex, columnIndex) {
+        this._board.flipTile(rowIndex, columnIndex);
+        if (this._board.playerBoard[rowIndex][columnIndex] === 'B') {
+            return 'Game Over!';
+        }
+        this._board.print();
+        if (this._board.hasSafeTiles() === false) {
+            return 'Gongrats! You won!';
+        } else {
+            return 'Current Board:';
+            this._board.print();
+        }
+    }
 }
 
 //Create the Board Class
@@ -60,13 +77,13 @@ class Board {
     };
 
     //Check for Safe Tiles
-    hasSafeTiles(numberOfTiles,numberOfBombs) {
+    hasSafeTiles(numberOfTiles, numberOfBombs) {
         return this._numberOfTiles !== this._numberOfBombs;
     }
 
     //An Updated printBoard() Function
-    print(board){
-        console.log(board.map(row => row.join(' | ')).join('\n'));
+    print() {
+        console.log(this._playerBoard.map(row => row.join(' | ')).join('\n'));
     };
 
     //Dynamically Generate a Player Board
@@ -110,15 +127,5 @@ class Board {
     };
 }
 
-//Create Both Boards
-let playerBoard = generatePlayerBoard(3, 4);
-let bombBoard = generateBombBoard(3, 4, 5);
-//Print Both Boards
-console.log('Player Board: ');
-printBoard(playerBoard);
-console.log('Bomb Board: ');
-printBoard(bombBoard);
-// Use flipTile() - call flipTile function
-flipTile(playerBoard, bombBoard, 0, 0);
-console.log('Updated Player Board:');
-printBoard(playerBoard);
+const g = new Game(5,5,10);
+g.playMove(1,2);
