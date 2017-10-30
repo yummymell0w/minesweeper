@@ -8,13 +8,12 @@ class Game {
     playMove(rowIndex, columnIndex) {
         this._board.flipTile(rowIndex, columnIndex);
         if (this._board.playerBoard[rowIndex][columnIndex] === 'B') {
-            return 'Game Over!';
-        }
-        this._board.print();
-        if (this._board.hasSafeTiles() === false) {
-            return 'Gongrats! You won!';
+            console.log('Game Over!');
+            this._board.print();
+        } else if (this._board.hasSafeTiles() === false) {
+            console.log('Gongrats! You won!');
         } else {
-            return 'Current Board:';
+            console.log('Current Board:');
             this._board.print();
         }
     }
@@ -39,7 +38,7 @@ class Board {
     //Add flipTile() to the Board Class. Add flipTile() - allows user to flp a tile
     flipTile(rowIndex, columnIndex) {
         if (this._playerBoard[rowIndex][columnIndex] !== ' ') {
-            return 'This tile has already been flipped!';
+            console.log('This tile has already been flipped!');
         } else if (this._bombBoard[rowIndex][columnIndex] === 'B') {
             this._playerBoard[rowIndex][columnIndex] = 'B'; //we should place a bomb at those same row and column indices on the playerBoard.
         } else {
@@ -127,5 +126,5 @@ class Board {
     };
 }
 
-const g = new Game(5,5,10);
-g.playMove(1,2);
+const g = new Game(5,6,11);
+g.playMove(3,4);
