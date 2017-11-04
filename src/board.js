@@ -104,6 +104,3 @@ export class Board {
         return board;
     };
 }
-
-const g = new Game(5,6,11);
-g.playMove(3,4);
